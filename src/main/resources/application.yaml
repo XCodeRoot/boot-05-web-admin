@@ -1,0 +1,51 @@
+spring:
+
+  druid:
+    filters: stat,wall
+
+    stat-view-servlet:
+      enabled: true
+      login-username: admin
+      login-password: admin
+      reset-enable: false
+
+    web-stat-filter:
+      enabled: true
+      urlPattern: /*
+      exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+    aop-patterns: com.atguigu.admin.*
+
+    filter:
+      stat:
+        slow-sql-millis: 1000  #毫秒
+        log-slow-sql: true
+        enabled: true
+      wall:
+        enabled: true
+        config:
+          drop-table-allow: false
+
+  datasource: #数据源 用来连接mysql , 并创建连接池
+    url: jdbc:mysql://localhost:3306/db_account?serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    type: com.zaxxer.hikari.HikariDataSource
+
+  jdbc:
+    template:
+      query-timeout: 10
+
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+#配置两个mybatis的规则
+mybatis:
+  #  config-location: classpath:mybatis/mybatis-config.xml #配置文件路径
+  mapper-locations: classpath:mybatis/mapper/*.xml #映射文件路径
+  configuration:
+    map-underscore-to-camel-case: true
